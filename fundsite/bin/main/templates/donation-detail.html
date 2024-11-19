@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Donation Detail</title>
+</head>
+<body>
+    <h1 th:text="${donation.title}"></h1>
+    <img th:src="${donation.mainImage}" alt="Main Image" style="width:400px;height:400px;">
+    <p th:text="'설명: ' + ${donation.description}"></p>
+    <p th:text="'목표 금액: ' + ${donation.goalAmount} + ' 원'"></p>
+    <p th:text="'모인 금액: ' + ${donation.collectedAmount} + ' 원'"></p>
+    <form th:action="@{/donation/{id}/donate(id=${donation.id})}" method="post">
+        <label for="amount">기부 금액:</label>
+        <input type="number" id="amount" name="amount" min="1" required>
+        <button type="submit">기부하기</button>
+    </form>
+    <a th:href="@{/}">홈으로 돌아가기</a>
+</body>
+</html>

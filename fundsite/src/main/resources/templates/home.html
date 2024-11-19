@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Donation Home</title>
+</head>
+<body>
+    <h1>기부 정보</h1>
+
+    <!-- 로그인 링크 또는 마이페이지 링크 추가 -->
+    <div>
+        <a th:href="@{/login}" th:if="${#authentication == null || #authentication.name == 'anonymousUser'}">로그인</a>
+        <a th:href="@{/mypage}" th:if="${#authentication != null && #authentication.name != 'anonymousUser'}">마이페이지</a>
+    </div>
+
+    <!-- 기부 정보 목록 출력 -->
+    <div th:each="donation : ${donations}">
+        <a th:href="@{/donations/{id}(id=${donation.id})}">
+            <img th:src="${donation.mainImage}" alt="Main Image" style="width:200px;height:200px;">
+            <h2 th:text="${donation.title}"></h2>
+            <p>목표 금액: <span th:text="${donation.goalAmount}"></span> 원</p>
+        </a>
+    </div>
+
+    <!-- 기부 정보가 없을 때 메시지 표시 -->
+    <div th:if="${#lists.isEmpty(donations)}">
+        <p>현재 등록된 기부 정보가 없습니다.</p>
+    </div>
+</body>
+</html>

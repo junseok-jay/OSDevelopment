@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>마이페이지</title>
+</head>
+<body>
+    <h1 th:text="'환영합니다, ' + ${user.nickname} + '님!'"></h1>
+    <p>아이디: <span th:text="${user.username}"></span></p>
+    <p>보유 금액: <span th:text="${user.balance}"></span> 원</p>
+
+    <h2>기부 정보</h2>
+    <div th:if="${donations != null}">
+        <div th:each="donation : ${donations}">
+            <p>기부 제목: <span th:text="${donation.title}"></span></p>
+            <p>모금된 금액: <span th:text="${donation.collectedAmount}"></span> 원</p>
+        </div>
+    </div>
+    <p th:if="${#lists.isEmpty(donations)}">현재 기부 내역이 없습니다.</p>
+
+    <a th:href="@{/logout}">로그아웃</a>
+</body>
+</html>
